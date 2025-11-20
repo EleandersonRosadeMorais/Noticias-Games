@@ -1,0 +1,34 @@
+CREATE DATABASE bdcrud;
+USE bdcrud;
+
+CREATE TABLE IF NOT EXISTS autores (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(255) NOT NULL,
+        sexo CHAR(1) NOT NULL,
+        fone VARCHAR(15) NOT NULL,
+        dataNascimento DATE NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        senha VARCHAR(255) NOT NULL
+    );
+
+CREATE TABLE IF NOT EXISTS noticias (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        titulo VARCHAR(255) NOT NULL,
+        noticia TEXT NOT NULL,
+        dataCriacao DATE NOT NULL,
+        autor_fk INT NOT NULL,
+        imagem VARCHAR(500),
+        FOREIGN KEY (autor_fk) REFERENCES autores(id)
+    );
+    
+    CREATE TABLE IF NOT EXISTS comentarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    comentario TEXT NOT NULL,
+    dataComentario DATETIME DEFAULT CURRENT_TIMESTAMP,
+    noticia_fk INT NOT NULL,
+    FOREIGN KEY (noticia_fk) REFERENCES noticias(id) ON DELETE CASCADE
+);
+
+INSERT INTO usuarios (nome, email, senha, tipo) VALUES ('Admin', 'admin', '$2y$10$...', 'admin');
